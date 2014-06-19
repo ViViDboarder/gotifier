@@ -1,7 +1,7 @@
 package gotifier
 
 import (
-	"log"
+	//"log"
 	"os/exec"
 )
 
@@ -15,15 +15,15 @@ type Notification struct {
 }
 
 func (notif Notification) Push() bool {
-	log.Println("Pushing notification")
+	//log.Println("Pushing notification")
 	if activeCmd == nil {
-		log.Println("No active notification command found")
+		//log.Println("No active notification command found")
 		return false
 	}
 
 	cmd := (*activeCmd).Command(notif)
 
-	cmd.Start()
+	cmd.Run()
 	return true
 }
 
@@ -81,13 +81,13 @@ func nonNull(vals ...string) string {
 }
 
 func init() {
-	log.Println("Initing Gotifier")
+	//log.Println("Initing Gotifier")
 	for _, cmd := range notifiers {
 		path, err := exec.LookPath(cmd.Name)
 		if err == nil && path != "" {
 			activeCmd = &cmd
 			activeCmd.Path = path
-			log.Println("Found notifier command: " + path)
+			//log.Println("Found notifier command: " + path)
 			return
 		}
 	}
